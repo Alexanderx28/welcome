@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida a Ailani</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+        --rosa: #ff5e78;
+        --azul: #00bfff;
+        --amarillo: #ffdb4d;
+        --lila: #b569ff;
+        --degradado: linear-gradient(135deg, #ffdde1, #fbb0b0, #fffbcc);
+    }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Baloo 2', cursive;
+            background: var(--degradado);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 1200px;
+            width: 90%;
+            z-index: 2;
+        }
+
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 4.5rem;
+            color: var(--rosa);
+            text-shadow: 3px 3px 0px white;
+            margin-bottom: 1rem;
+            transform: rotate(-3deg);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .subtitle {
+            color: var(--azul);
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 0px white;
+            animation: fadeIn 2s ease-in-out;
+            font-weight: bold;
+        }
+
+        .card {
+            background: linear-gradient(145deg, white, #fff0f5);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 20px 0;
+            box-shadow: 0 15px 40px rgba(255, 94, 120, 0.3);
+            border: 4px solid var(--rosa);
+            transform-style: preserve-3d;
+            transition: 0.5s ease-in-out;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: float 5s infinite ease-in-out;
+        }
+
+        .phrase {
+            font-size: 1.8rem;
+            color: #5a5a5a;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+
+@keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+@keyframes heartbeat {
+            0% {
+                transform: scale(1) rotate(-3deg);
+            }
+            50% {
+                transform: scale(1.1) rotate(-3deg);
+            }
+            100% {
+                transform: scale(1) rotate(-3deg);
+            }
+        }
+
+@keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+@media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+            .subtitle {
+                font-size: 1.8rem;
+            }
+            .phrase {
+                font-size: 1.4rem;
+            }
+            .card {
+                padding: 20px;
+            }
+        }
+
+@media (max-width: 480px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.5rem;
+            }
+            .phrase {
+                font-size: 1.2rem;
+            }
+        }
+
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            animation: stars 60s linear infinite;
+            opacity: 1;
+        }
+
+@keyframes stars {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100%);
+            }
+        }
+        
+    .confetti {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ff4081;
+      border-radius: 50%;
+      animation: fall 3s linear infinite;
+    }
+    
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(600px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    </style>
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="container" id="container">
+        <h1 class="animate__animated animate__rubberBand">¡Hola Ailani!</h1>
+        <div class="subtitle">
+            Bienvenida a tu Hogar
+        </div>
+        <div id="card" class="card"></div>
+    </div>
+    <!-- Celebración Final -->
+    <div class="celebration" id="celebration"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        const colors = ['#ff5e78', '#00bfff', '#ffdb4d', '#b569ff'];
+
+        startCelebration2();
+        startCelebration();
+        function startCelebration() {
+            const card = document.getElementById("container");
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.left = Math.random() * 100 + "%";
+                confetti.style.top = Math.random() * 100 - 100 + "px";
+                confetti.style.background = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDuration = 2 + Math.random() * 3 + "s";
+                confetti.style.animationDelay = Math.random() * 2 + "s";
+                card.appendChild(confetti);
+
+                // Remover confeti después de la animación
+                confetti.addEventListener("animationend", () => {
+                    confetti.remove();
+                });
+            }
+        }
+        const phrases = [
+            {
+                text: "Tu llegada ha llenado nuestros corazones de amor 💕",
+                icon: "👼"
+            },
+            {
+                text: "Cada sonrisa tuya iluminara nuestros días ☀️",
+                icon: "🌼"
+            },
+            {
+                text: "Mami y Papi Te aman más de lo que las palabras pueden expresar 🌈",
+                icon: "🦄"
+            },
+            {
+                text: "Bienvenida al mundo, pequeña Ailani 🌍",
+                icon: "🌟"
+            },
+            {
+                text: "Que Dios bendiga tu vida siempre! 🙏",
+                icon: "🙌"
+            }];
+
+        function fireConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: {
+                    y: 0.6
+                },
+                colors: colors
+            });
+        }
+
+        function startCelebration2() {
+            const celebration = document.getElementById('celebration');
+            celebration.style.display = 'block';
+
+            const duration = 5000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 15,
+                    angle: 60,
+                    spread: 80,
+                    origin: {
+                        x: 0, y: 0.3
+                    },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 15,
+                    angle: 120,
+                    spread: 80,
+                    origin: {
+                        x: 1, y: 0.3
+                    },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        }
+
+        function showPhrases() {
+            let index = 0;
+            const card = document.getElementById('card');
+
+            function addPhrase() {
+                if (index < phrases.length) {
+                    const phraseContainer = document.createElement('div');
+                    phraseContainer.className = 'phrase animate__animated animate__fadeInUp';
+
+                    const iconElement = document.createElement('span');
+                    iconElement.className = 'card-icon';
+                    iconElement.innerHTML = phrases[index].icon;
+
+                    const textElement = document.createElement('span');
+                    textElement.innerHTML = phrases[index].text;
+
+                    phraseContainer.appendChild(iconElement);
+                    phraseContainer.appendChild(textElement);
+                    card.appendChild(phraseContainer);
+
+                    fireConfetti();
+
+                    index++;
+                    setTimeout(addPhrase, 3000);
+                } else {
+                    startCelebration2();
+                }
+            }
+
+            addPhrase();
+        }
+
+        window.onload = () => {
+            showPhrases();
+            setInterval(() => {
+                document.querySelector('h1').classList.add('animate__rubberBand');
+                setTimeout(() => document.querySelector('h1').classList.remove('animate__rubberBand'), 1000);
+            }, 5000);
+        };
+    </script>
+</body>
+</html>
